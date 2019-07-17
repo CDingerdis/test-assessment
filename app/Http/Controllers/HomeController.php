@@ -23,7 +23,7 @@ class HomeController extends Controller
      *
      * @param Factory $view_factory
      */
-    public function __construct (Factory $view_factory)
+    public function __construct(Factory $view_factory)
     {
         $this->view_factory = $view_factory;
     }
@@ -31,7 +31,7 @@ class HomeController extends Controller
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function index () : View
+    public function index(): View
     {
         return $this->view_factory->make('home');
     }

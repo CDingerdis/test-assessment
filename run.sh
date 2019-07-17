@@ -1,13 +1,13 @@
-#if which docker >/dev/null; then
-#    echo 'docker found'
-#    if [[ ! -f "./.env" ]]; then
-#        cp .env.example .env
-#        docker-compose run composer
-#        docker-compose run php php artisan key:generate
-#    fi
-#    docker-compose up
-#    exit
-#fi
+if which docker >/dev/null; then
+    echo 'docker found'
+    if [[ ! -f "./.env" ]]; then
+        cp .env.example .env
+        docker-compose run composer
+        docker-compose run php php artisan key:generate
+    fi
+    docker-compose up
+    exit
+fi
 
 echo 'docker not found'
 if which composer >/dev/null; then

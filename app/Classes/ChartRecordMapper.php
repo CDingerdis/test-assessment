@@ -11,10 +11,6 @@ use Illuminate\Support\Collection;
  */
 Class ChartRecordMapper
 {
-    /**
-     * @var Collection
-     */
-    private $records;
 
     /**
      * All visible steps
@@ -26,26 +22,35 @@ Class ChartRecordMapper
         50 => 'What jobs are you interested in?',
         70 => 'Do you have relevant experience in these jobs?',
         90 => 'Are you a freelancer?',
-        99 => 'Waiting for approval ',
+        99 => 'Waiting for approval',
         100 => 'Approval',
     ];
-
-    /**
-     * @param Collection $records
-     */
-    public function setRecords (Collection $records) : void
-    {
-        $this->records = $records;
-    }
 
     /**
      * get the steps
      *
      * @return array
      */
-    public function getSteps () : array
+    public function getSteps(): array
     {
         return self::VISIBLE_STEPS;
+    }
+
+    /**
+     * map the records to the correct format for the chart
+     *
+     * @param Collection $percentage_per_week
+     * @param            $total_per_week
+     *
+     * @return Collection
+     */
+    public function mapToChart(Collection $percentage_per_week, $total_per_week): Collection
+    {
+        return $percentage_per_week->map(function ($records, $week) use ($total_per_week) {
+            $steps = $this->getAllSteps($records);
+
+            return $this->calculateDropOff($records, $steps, $total_per_week[$week]);
+        });
     }
 
     /**
@@ -53,7 +58,7 @@ Class ChartRecordMapper
      *
      * @return array
      */
-    public function getStepsKeys () : array
+    private function getStepsKeys(): array
     {
         return array_keys(self::VISIBLE_STEPS);
     }
@@ -65,30 +70,13 @@ Class ChartRecordMapper
      *
      * @return array
      */
-    public function getAllSteps ($records) : array
+    private function getAllSteps($records): array
     {
         $all_steps = array_unique(array_merge($records->keys()->toArray(), array_keys(self::VISIBLE_STEPS)),
             SORT_REGULAR);
         sort($all_steps);
 
         return $all_steps;
-    }
-
-    /**
-     * map the records to the correct format for the chart
-     *
-     * @param Collection $percentage_per_week
-     * @param            $total_per_week
-     *
-     * @return Collection
-     */
-    public function mapToChart (Collection $percentage_per_week, $total_per_week) : Collection
-    {
-        return $percentage_per_week->map(function ($records, $week) use ($total_per_week) {
-            $steps = $this->getAllSteps($records);
-
-            return $this->calculateDropOff($records, $steps, $total_per_week[$week]);
-        });
     }
 
     /**
@@ -100,7 +88,7 @@ Class ChartRecordMapper
      *
      * @return array
      */
-    private function calculateDropOff ($records, $steps, $total) : array
+    private function calculateDropOff($records, $steps, $total): array
     {
         $next_drop_off = 0;
         $result = [];

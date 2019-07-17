@@ -19,7 +19,7 @@ class CsvRecordHydrator
      *
      * @return Collection
      */
-    public function hydrate (array $rows) : Collection
+    public function hydrate(array $rows): Collection
     {
         $entities = new Collection();
         foreach ($rows as $row) {
@@ -34,7 +34,7 @@ class CsvRecordHydrator
      *
      * @return Record
      */
-    public function hydrateSingle (array $data) : ?Record
+    public function hydrateSingle(array $data): ?Record
     {
         $record = new Record();
         $record->setUserId($data['user_id']);

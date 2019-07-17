@@ -33,15 +33,16 @@ Class DataController extends Controller
     /**
      * HomeController constructor.
      *
-     * @param ResponseFactory     $response_factory
-     * @param ChartRecordMapper   $record_mapper
+     * @param ResponseFactory $response_factory
+     * @param ChartRecordMapper $record_mapper
      * @param CsvRecordRepository $record_repository
      */
-    public function __construct (
+    public function __construct(
         ResponseFactory $response_factory,
         ChartRecordMapper $record_mapper,
         CsvRecordRepository $record_repository
-    ) {
+    )
+    {
         $this->record_mapper = $record_mapper;
         $this->record_repository = $record_repository;
         $this->response_factory = $response_factory;
@@ -50,7 +51,7 @@ Class DataController extends Controller
     /**
      * @return JsonResponse
      */
-    public function statistics () : JsonResponse
+    public function statistics(): JsonResponse
     {
         $total_per_week = $this->record_repository->AllPerWeekCounted();
         $percentage_per_week = $this->record_repository->allPerWeekInPercentage();

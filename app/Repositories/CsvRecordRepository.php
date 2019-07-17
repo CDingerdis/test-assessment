@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Classes\CsvImporter;
 use App\Hydrators\CsvRecordHydrator;
+use App\Interfaces\RecordRepositoryInterface;
 use Illuminate\Support\Collection;
 
 /**
@@ -11,7 +12,7 @@ use Illuminate\Support\Collection;
  *
  * @package App\Repositories
  */
-Class CsvRecordRepository
+Class CsvRecordRepository implements RecordRepositoryInterface
 {
     /**
      * @var CsvImporter
@@ -36,10 +37,10 @@ Class CsvRecordRepository
     /**
      * CsvRecordRepository constructor.
      *
-     * @param CsvImporter       $csv_importer
+     * @param CsvImporter $csv_importer
      * @param CsvRecordHydrator $record_hydrator
      */
-    public function __construct (CsvImporter $csv_importer, CsvRecordHydrator $record_hydrator)
+    public function __construct(CsvImporter $csv_importer, CsvRecordHydrator $record_hydrator)
     {
         $this->path = storage_path('app/uploads/export.csv');
         $this->csv_importer = $csv_importer;
@@ -53,7 +54,7 @@ Class CsvRecordRepository
      *
      * @return mixed
      */
-    public function all ()
+    public function all()
     {
         return $this->records;
     }
@@ -62,7 +63,7 @@ Class CsvRecordRepository
      * Return all records grouped by weeks
      * @return mixed
      */
-    public function allPerWeek () : Collection
+    public function allPerWeek(): Collection
     {
         return $this->all()->groupBy(function ($record, $key) {
             return $record->getCreatedAt()->startOfWeek()->weekOfYear;
@@ -73,7 +74,7 @@ Class CsvRecordRepository
      * return counted records grouped by week
      * @return Collection
      */
-    public function allPerWeekCounted () : Collection
+    public function allPerWeekCounted(): Collection
     {
         return $this->allPerWeek()->map(function ($item) {
             return $item->count();
@@ -84,10 +85,10 @@ Class CsvRecordRepository
      * return all records grouped by week and by step
      * @return Collection
      */
-    public function allPerWeekInPercentage() : Collection
+    public function allPerWeekInPercentage(): Collection
     {
         return $this->allPerWeek()->map(function ($items) {
-            return $items->groupBy(function($item) {
+            return $items->groupBy(function ($item) {
                 return $item->getOnboardingPercentage();
             });
         });

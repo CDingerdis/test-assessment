@@ -28,10 +28,10 @@ class UploadController extends Controller
     /**
      * UploadController constructor.
      *
-     * @param Filesystem      $filesystem
+     * @param Filesystem $filesystem
      * @param ResponseFactory $response_factory
      */
-    public function __construct (Filesystem $filesystem, ResponseFactory $response_factory)
+    public function __construct(Filesystem $filesystem, ResponseFactory $response_factory)
     {
         $this->filesystem = $filesystem;
         $this->response_factory = $response_factory;
@@ -42,7 +42,7 @@ class UploadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function upload (UploadCsvRequest $request) : Response
+    public function upload(UploadCsvRequest $request): Response
     {
         $request->file('file')->storeAs('uploads', 'export.csv');
 

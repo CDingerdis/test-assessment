@@ -21,7 +21,7 @@ Class CsvImporter
      *
      * @return array
      */
-    public function import (string $path) : array
+    public function import(string $path): array
     {
         $file = file($path);
 
@@ -35,7 +35,7 @@ Class CsvImporter
      *
      * @return array
      */
-    private function fileToArray ($file) : array
+    private function fileToArray($file): array
     {
         $data = array_map(static function ($file) {
             return str_getcsv($file, self::DELIMITER);

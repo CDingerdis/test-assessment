@@ -39,7 +39,7 @@ class Record
     /**
      * @return mixed
      */
-    public function getUserId () : int
+    public function getUserId(): int
     {
         return $this->user_id;
     }
@@ -47,15 +47,15 @@ class Record
     /**
      * @param mixed $user_id
      */
-    public function setUserId ($user_id) : void
+    public function setUserId($user_id): void
     {
-        $this->user_id = (int) $user_id;
+        $this->user_id = (int)$user_id;
     }
 
     /**
      * @return mixed
      */
-    public function getOnboardingPercentage () : int
+    public function getOnboardingPercentage(): int
     {
         return $this->onboarding_percentage;
     }
@@ -63,15 +63,15 @@ class Record
     /**
      * @param mixed $onboarding_percentage
      */
-    public function setOnboardingPercentage ($onboarding_percentage) : void
+    public function setOnboardingPercentage($onboarding_percentage): void
     {
-        $this->onboarding_percentage = (int) $onboarding_percentage;
+        $this->onboarding_percentage = (int)$onboarding_percentage;
     }
 
     /**
      * @return mixed
      */
-    public function getCountApplications () : int
+    public function getCountApplications(): int
     {
         return $this->count_applications;
     }
@@ -79,15 +79,15 @@ class Record
     /**
      * @param mixed $count_applications
      */
-    public function setCountApplications ($count_applications) : void
+    public function setCountApplications($count_applications): void
     {
-        $this->count_applications = (int) $count_applications;
+        $this->count_applications = (int)$count_applications;
     }
 
     /**
      * @return mixed
      */
-    public function getCountAcceptedApplications () : int
+    public function getCountAcceptedApplications(): int
     {
         return $this->count_accepted_applications;
     }
@@ -95,15 +95,15 @@ class Record
     /**
      * @param mixed $count_accepted_applications
      */
-    public function setCountAcceptedApplications ($count_accepted_applications) : void
+    public function setCountAcceptedApplications($count_accepted_applications): void
     {
-        $this->count_accepted_applications = (int) $count_accepted_applications;
+        $this->count_accepted_applications = (int)$count_accepted_applications;
     }
 
     /**
      * @return mixed
      */
-    public function getCreatedAt () : Carbon
+    public function getCreatedAt(): Carbon
     {
         return $this->created_at;
     }
@@ -111,7 +111,7 @@ class Record
     /**
      * @param mixed $created_at
      */
-    public function setCreatedAt ($created_at) : void
+    public function setCreatedAt($created_at): void
     {
         $this->created_at = Carbon::parse($created_at);
     }
@@ -121,7 +121,7 @@ class Record
      *
      * @return bool
      */
-    public function isValid () : bool
+    public function isValid(): bool
     {
         if ($this->getOnboardingPercentage() == "") {
             return false;
